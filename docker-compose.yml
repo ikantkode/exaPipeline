@@ -1,0 +1,141 @@
+services:
+  pipeline-api:
+    build: .
+    container_name: pipeline-api
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data:/app/data
+      - ./config:/app/config
+      - ./src:/app/src
+    environment:
+      - REDIS_URL=redis://192.168.1.151:6379/0
+      - EXAOCR_URL=http://192.168.1.151:45001
+      - VLLM_URL=http://192.168.1.151:45000
+      - LOG_LEVEL=INFO
+    depends_on:
+      - redis
+    command: uvicorn src.main:app --host 0.0.0.0 --port 8000 --reload
+    networks:
+      - pipeline-network
+
+  redis:
+    image: redis:7-alpine
+    container_name: pipeline-redis
+    ports:
+      - "6379:6379"
+    networks:
+      - pipeline-network
+
+  ingestion-worker:
+    build: .
+    container_name: ingestion-worker
+    volumes:
+      - ./data:/app/data
+      - ./config:/app/config
+      - ./src:/app/src
+    environment:
+      - REDIS_URL=redis://192.168.1.151:6379/0
+      - EXAOCR_URL=http://192.168.1.151:45001
+      - VLLM_URL=http://192.168.1.151:45000
+    depends_on:
+      - redis
+    command: celery -A src.workers.ingestion_worker worker --loglevel=info --concurrency=2 -Q ingestion_queue
+    networks:
+      - pipeline-network
+
+  classification-worker:
+    build: .
+    container_name: classification-worker
+    volumes:
+      - ./data:/app/data
+      - ./config:/app/config
+      - ./src:/app/src
+    environment:
+      - REDIS_URL=redis://192.168.1.151:6379/0
+      - VLLM_URL=http://192.168.1.151:45000
+    depends_on:
+      - redis
+    command: celery -A src.workers.classification_worker worker --loglevel=info --concurrency=4 -Q classification_queue
+    networks:
+      - pipeline-network
+
+  chunking-worker:
+    build: .
+    container_name: chunking-worker
+    volumes:
+      - ./data:/app/data
+      - ./config:/app/config
+      - ./src:/app/src
+    environment:
+      - REDIS_URL=redis://192.168.1.151:6379/0
+    depends_on:
+      - redis
+    command: celery -A src.workers.chunking_worker worker --loglevel=info --concurrency=4 -Q chunking_queue
+    networks:
+      - pipeline-network
+
+  annotation-worker:
+    build: .
+    container_name: annotation-worker
+    volumes:
+      - ./data:/app/data
+      - ./config:/app/config
+      - ./src:/app/src
+    environment:
+      - REDIS_URL=redis://192.168.1.151:6379/0
+      - VLLM_URL=http://192.168.1.151:45000
+    depends_on:
+      - redis
+    command: celery -A src.workers.annotation_worker worker --loglevel=info --concurrency=4 -Q annotation_queue
+    networks:
+      - pipeline-network
+
+  synthesis-worker:
+    build: .
+    container_name: synthesis-worker
+    volumes:
+      - ./data:/app/data
+      - ./config:/app/config
+      - ./src:/app/src
+    environment:
+      - REDIS_URL=redis://192.168.1.151:6379/0
+      - VLLM_URL=http://192.168.1.151:45000
+    depends_on:
+      - redis
+    command: celery -A src.workers.synthesis_worker worker --loglevel=info --concurrency=2 -Q synthesis_queue
+    networks:
+      - pipeline-network
+
+  validation-worker:
+    build: .
+    container_name: validation-worker
+    volumes:
+      - ./data:/app/data
+      - ./config:/app/config
+      - ./src:/app/src
+    environment:
+      - REDIS_URL=redis://192.168.1.151:6379/0
+      - VLLM_URL=http://192.168.1.151:45000
+    depends_on:
+      - redis
+    command: celery -A src.workers.validation_worker worker --loglevel=info --concurrency=4 -Q validation_queue
+    networks:
+      - pipeline-network
+
+  flower:
+    build: .
+    container_name: pipeline-flower
+    ports:
+      - "5555:5555"
+    environment:
+      - REDIS_URL=redis://192.168.1.151:6379/0
+    depends_on:
+      - redis
+    command: celery -A src.workers.ingestion_worker flower --port=5555
+    networks:
+      - pipeline-network
+
+networks:
+  pipeline-network:
+    driver: bridge
