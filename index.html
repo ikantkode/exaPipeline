@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>exaPipeline Documentation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #004aad;
+            --secondary-color: #0066cc;
+            --accent-color: #ff6b35;
+            --success-color: #28a745;
+            --warning-color: #ffc107;
+            --danger-color: #dc3545;
+            --info-color: #17a2b8;
+            --light-color: #f8f9fa;
+            --dark-color: #343a40;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark-color);
+            background-color: #f5f7fa;
+            overflow-x: hidden;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://picsum.photos/seed/exapipeline/1920/400.jpg') center/cover;
+            opacity: 0.1;
+            z-index: 0;
+        }
+
+        header .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 3em;
+            font-weight: 700;
+            margin-bottom: 10px;
+            letter-spacing: -1px;
+        }
+
+        header p {
+            font-size: 1.3em;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Navigation Styles */
+        nav {
+            background: white;
+            box-shadow: var(--box-shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            transition: var(--transition);
+        }
+
+        nav .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        nav .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            padding: 15px 0;
+        }
+
+        nav .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        nav .nav-links a {
+            color: var(--dark-color);
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: 500;
+            padding: 20px 0;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        nav .nav-links a::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        nav .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        nav .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            cursor: pointer;
+        }
+
+        /* Main Content Styles */
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        section {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 40px;
+            margin-bottom: 40px;
+            transition: var(--transition);
+        }
+
+        section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: var(--primary-color);
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid var(--primary-color);
+            position: relative;
+        }
+
+        h2::after {
+            content: "";
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 70px;
+            height: 3px;
+            background: var(--accent-color);
+        }
+
+        h3 {
+            color: var(--secondary-color);
+            font-size: 1.6rem;
+            margin: 30px 0 15px;
+            position: relative;
+            padding-left: 15px;
+        }
+
+        h3::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 5px;
+            height: 25px;
+            width: 5px;
+            background: var(--accent-color);
+            border-radius: 3px;
+        }
+
+        p {
+            margin-bottom: 15px;
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        ul, ol {
+            margin: 20px 0;
+            padding-left: 25px;
+        }
+
+        li {
+            margin-bottom: 12px;
+            position: relative;
+        }
+
+        li::marker {
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        strong {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: var(--secondary-color);
+            text-decoration: underline;
+        }
+
+        /* Code Styles */
+        pre {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            overflow-x: auto;
+            margin: 20px 0;
+            position: relative;
+            box-shadow: var(--box-shadow);
+        }
+
+        pre::before {
+            content: "Code";
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            color: #888;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+        }
+
+        code {
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        /* Alert Styles */
+        .alert {
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: var(--border-radius);
+            position: relative;
+            padding-left: 50px;
+        }
+
+        .alert::before {
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 15px;
+            top: 15px;
+            font-size: 1.5rem;
+        }
+
+        .highlight {
+            background: linear-gradient(to right, rgba(255, 193, 7, 0.1), rgba(255, 193, 7, 0.05));
+            border-left: 4px solid var(--warning-color);
+            color: #856404;
+        }
+
+        .highlight::before {
+            content: "\f071";
+            color: var(--warning-color);
+        }
+
+        .important {
+            background: linear-gradient(to right, rgba(23, 162, 184, 0.1), rgba(23, 162, 184, 0.05));
+            border-left: 4px solid var(--info-color);
+            color: #0c5460;
+        }
+
+        .important::before {
+            content: "\f05a";
+            color: var(--info-color);
+        }
+
+        .success {
+            background: linear-gradient(to right, rgba(40, 167, 69, 0.1), rgba(40, 167, 69, 0.05));
+            border-left: 4px solid var(--success-color);
+            color: #155724;
+        }
+
+        .success::before {
+            content: "\f058";
+            color: var(--success-color);
+        }
+
+        .danger {
+            background: linear-gradient(to right, rgba(220, 53, 69, 0.1), rgba(220, 53, 69, 0.05));
+            border-left: 4px solid var(--danger-color);
+            color: #721c24;
+        }
+
+        .danger::before {
+            content: "\f057";
+            color: var(--danger-color);
+        }
+
+        /* Table Styles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: var(--box-shadow);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        th {
+            background: var(--primary-color);
+            color: white;
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) {
+            background: var(--light-color);
+        }
+
+        tr:hover {
+            background: rgba(0, 74, 173, 0.05);
+        }
+
+        /* Feature Card Styles */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .feature-card {
+            background: var(--light-color);
+            border-radius: var(--border-radius);
+            padding: 25px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+            border-top: 4px solid var(--primary-color);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--box-shadow);
+        }
+
+        .feature-card i {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .feature-card h4 {
+            color: var(--secondary-color);
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        /* Workflow Steps */
+        .workflow {
+            counter-reset: step;
+            margin: 30px 0;
+        }
+
+        .workflow-step {
+            position: relative;
+            padding-left: 60px;
+            margin-bottom: 30px;
+            min-height: 50px;
+        }
+
+        .workflow-step::before {
+            counter-increment: step;
+            content: counter(step);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 40px;
+            height: 40px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            box-shadow: var(--box-shadow);
+        }
+
+        .workflow-step::after {
+            content: "";
+            position: absolute;
+            left: 20px;
+            top: 40px;
+            width: 2px;
+            height: calc(100% - 20px);
+            background: #ddd;
+        }
+
+        .workflow-step:last-child::after {
+            display: none;
+        }
+
+        /* Tab Styles */
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 20px;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--dark-color);
+            transition: var(--transition);
+            border-bottom: 3px solid transparent;
+        }
+
+        .tab.active {
+            color: var(--primary-color);
+            border-bottom: 3px solid var(--primary-color);
+        }
+
+        .tab:hover {
+            color: var(--primary-color);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        /* Button Styles */
+        .btn {
+            display: inline-block;
+            background: var(--primary-color);
+            color: white;
+            padding: 12px 24px;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-weight: 500;
+            margin: 10px 0;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: var(--box-shadow);
+        }
+
+        .btn-secondary {
+            background: var(--accent-color);
+        }
+
+        .btn-secondary:hover {
+            background: #e55a2b;
+        }
+
+        /* Footer Styles */
+        footer {
+            background: linear-gradient(135deg, var(--dark-color) 0%, #222 100%);
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 50px;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 1rem;
+        }
+
+        footer .social-links {
+            margin-top: 15px;
+        }
+
+        footer .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            margin: 0 10px;
+            transition: var(--transition);
+        }
+
+        footer .social-links a:hover {
+            transform: translateY(-5px);
+            color: var(--accent-color);
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.2rem;
+            }
+
+            header p {
+                font-size: 1.1rem;
+            }
+
+            nav .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: white;
+                flex-direction: column;
+                box-shadow: var(--box-shadow);
+            }
+
+            nav .nav-links.active {
+                display: flex;
+            }
+
+            nav .nav-links a {
+                padding: 15px 20px;
+                border-bottom: 1px solid #eee;
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            section {
+                padding: 25px;
+            }
+
+            h2 {
+                font-size: 1.8rem;
+            }
+
+            h3 {
+                font-size: 1.4rem;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tabs {
+                flex-wrap: wrap;
+            }
+
+            .tab {
+                flex: 1 0 50%;
+                text-align: center;
+            }
+        }
+
+        /* Animation Styles */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        section {
+            animation: fadeIn 0.6s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>exaPipeline</h1>
+            <p>Document-to-LLM Training Data Pipeline, currently built for construction</p>
+        </div>
+    </header>
+
+    <nav>
+        <div class="container">
+            <div class="logo">exaPipeline</div>
+            <ul class="nav-links">
+                <li><a href="#overview">Overview</a></li>
+                <li><a href="#purpose">Purpose</a></li>
+                <li><a href="#deployment">Deployment</a></li>
+                <li><a href="#ip-config">IP Configuration</a></li>
+                <li><a href="#usage">Usage</a></li>
+                <li><a href="#vllm">vLLM</a></li>
+                <li><a href="#troubleshooting">Troubleshooting</a></li>
+            </ul>
+            <button class="mobile-menu-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <div class="container">
+        <section id="overview">
+            <h2>Overview</h2>
+            <p><strong>exaPipeline</strong> is a production-ready, containerized system designed to transform domain-specific PDF documents into structured datasets for fine-tuning large language models (LLMs), specifically optimized for Qwen3:4B.</p>
+            <p>It automates the entire process from document ingestion to training data generation with high-quality control and minimal manual intervention.</p>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <i class="fas fa-cogs"></i>
+                    <h4>Microservices Architecture</h4>
+                    <p>Scalable, fault-tolerant design with separate components for each processing stage.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-robot"></i>
+                    <h4>AI-Powered Processing</h4>
+                    <p>Leverages advanced OCR and LLM technologies for accurate document analysis.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-chart-line"></i>
+                    <h4>Real-time Monitoring</h4>
+                    <p>Track processing progress and system health through intuitive dashboards.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="purpose">
+            <h2>Purpose and Goals</h2>
+            <p>exaPipeline bridges the gap between messy domain documents and AI training data. It achieves:</p>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <i class="fas fa-magic"></i>
+                    <h4>Full Automation</h4>
+                    <p>Transform PDFs into JSONL training data with minimal manual intervention.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-shield-alt"></i>
+                    <h4>Quality Assurance</h4>
+                    <p>Ensure high-quality data through validation and hallucination detection.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-expand-arrows-alt"></i>
+                    <h4>Scalable Architecture</h4>
+                    <p>Support large-scale processing with containerized microservices.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-user-friends"></i>
+                    <h4>User-Friendly</h4>
+                    <p>Provide a no-code Streamlit dashboard for non-technical users.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-file-export"></i>
+                    <h4>Multiple Export Formats</h4>
+                    <p>Support SFT, RLAIF, RLHF, and Qwen3 native chat formats.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="deployment">
+            <h2>Deployment Instructions</h2>
+            
+            <div class="alert important">
+                <strong>Important</strong>: The pipeline uses several services with IP addresses. <strong>Never hard-code IPs in code</strong>. Always configure via <code>.env</code> files.
+            </div>
+
+            <h3>Prerequisites</h3>
+            <ul>
+                <li>Docker & Docker Compose</li>
+                <li>Git</li>
+                <li>exaOCR server (PDF → Markdown)</li>
+                <li>vLLM server running Qwen3:4B</li>
+            </ul>
+
+            <h3>Repository Links</h3>
+            <ul>
+                <li><a href="https://github.com/ikantkode/exaOCR" target="_blank">exaOCR Repository</a></li>
+                <li><a href="https://github.com/ikantkode/exaPipeline" target="_blank">exaPipeline Repository</a></li>
+                <li><a href="https://github.com/ikantkode/exaPipelineDashboard" target="_blank">exaPipelineDashboard Repository</a></li>
+            </ul>
+
+            <h3>Configuration Files (Critical IPs)</h3>
+            <p>All external service IPs must be configured in environment files:</p>
+            <pre><code># exaPipeline/.env
+REDIS_URL=redis://&lt;redis-host-ip&gt;:6379/0          # e.g., 192.168.1.151
+OCR_API_URL=http://&lt;exaocr-ip&gt;:45001             # e.g., 192.168.1.151:45001
+VLLM_API_URL=http://&lt;vllm-ip&gt;:45000               # e.g., 192.168.1.151:45000
+</code></pre>
+            <pre><code># exaPipelineDashboard/.env
+BACKEND_API_URL=http://&lt;backend-api-ip&gt;:8000       # e.g., 192.168.1.151:8000
+</code></pre>
+
+            <div class="tabs">
+                <button class="tab active" onclick="openTab(event, 'single-machine')">Single Machine Setup</button>
+                <button class="tab" onclick="openTab(event, 'multi-machine')">Multi-Machine Setup</button>
+            </div>
+            
+            <div id="single-machine" class="tab-content active">
+                <h3>Single Machine Deployment</h3>
+                <p>If you're running all services on the same machine, use <code>localhost</code> or <code>127.0.0.1</code> in your configuration:</p>
+                <pre><code># exaPipeline/.env
+REDIS_URL=redis://localhost:6379/0
+OCR_API_URL=http://localhost:45001
+VLLM_API_URL=http://localhost:45000
+
+# exaPipelineDashboard/.env
+BACKEND_API_URL=http://localhost:8000</code></pre>
+                
+                <div class="alert success">
+                    <strong>Tip</strong>: Using <code>localhost</code> is recommended for single-machine setups as it's more readable and less prone to configuration errors.
+                </div>
+            </div>
+            
+            <div id="multi-machine" class="tab-content">
+                <h3>Multi-Machine Deployment</h3>
+                <p>For production or distributed setups, use the actual IP addresses of each service:</p>
+                <pre><code># exaPipeline/.env
+REDIS_URL=redis://192.168.1.151:6379/0          # Redis server IP
+OCR_API_URL=http://192.168.1.152:45001          # exaOCR server IP
+VLLM_API_URL=http://192.168.1.153:45000          # vLLM server IP
+
+# exaPipelineDashboard/.env
+BACKEND_API_URL=http://192.168.1.154:8000        # Backend API server IP</code></pre>
+                
+                <div class="alert highlight">
+                    <strong>Warning</strong>: Ensure all machines can communicate over the network and that firewalls allow connections on the specified ports.
+                </div>
+            </div>
+
+            <div class="alert highlight">
+                <strong>Warning</strong>: Some code files may contain default IPs (e.g., 192.168.1.151). These are placeholders. <strong>Always override them using .env files</strong> — Docker Compose loads these automatically.
+            </div>
+
+            <h3>Deployment Steps</h3>
+            <div class="workflow">
+                <div class="workflow-step">
+                    <h4>Clone the Repositories</h4>
+                    <pre><code># Clone exaOCR
+git clone https://github.com/ikantkode/exaOCR.git
+cd exaOCR
+
+# Clone exaPipeline
+git clone https://github.com/ikantkode/exaPipeline.git
+cd exaPipeline
+
+# Clone exaPipelineDashboard
+git clone https://github.com/ikantkode/exaPipelineDashboard.git
+cd exaPipelineDashboard</code></pre>
+                </div>
+                <div class="workflow-step">
+                    <h4>Configure Environment Files</h4>
+                    <p>Edit the <code>.env</code> files in both <code>exaPipeline</code> and <code>exaPipelineDashboard</code> with your actual service IPs or localhost as shown above.</p>
+                </div>
+                <div class="workflow-step">
+                    <h4>Deploy exaOCR (if needed)</h4>
+                    <pre><code>cd exaOCR
+docker compose up -d</code></pre>
+                    <p>This will start the exaOCR service on port 45001.</p>
+                </div>
+                <div class="workflow-step">
+                    <h4>Deploy Backend Pipeline</h4>
+                    <pre><code>cd exaPipeline
+docker compose up -d</code></pre>
+                    <p>This starts 9 containers: API, Redis, 6 workers, and Flower monitoring.</p>
+                </div>
+                <div class="workflow-step">
+                    <h4>Deploy Frontend Dashboard</h4>
+                    <pre><code>cd exaPipelineDashboard
+docker compose up -d</code></pre>
+                    <p>This starts the Streamlit dashboard on port 8501.</p>
+                </div>
+                <div class="workflow-step">
+                    <h4>Verify Services</h4>
+                    <ul>
+                        <li>Dashboard: <a href="http://localhost:8501" target="_blank">http://localhost:8501</a></li>
+                        <li>API: <a href="http://localhost:8000/docs" target="_blank">http://localhost:8000/docs</a></li>
+                        <li>Monitoring: <a href="http://localhost:5555" target="_blank">http://localhost:5555</a></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="ip-config">
+            <h2>IP Configuration Guide</h2>
+            <div class="alert important">
+                <p>All network communication uses configurable IPs. Default placeholders (192.168.1.151) appear in some code files for development.</p>
+                <p><strong>You MUST override these using .env files</strong> for production or multi-machine setups.</p>
+            </div>
+
+            <h3>Required Services & Default Ports</h3>
+            <table>
+                <tr>
+                    <th>Service</th>
+                    <th>Purpose</th>
+                    <th>Default Port</th>
+                    <th>Config Location</th>
+                </tr>
+                <tr>
+                    <td>Redis</td>
+                    <td>Task queue</td>
+                    <td>6379</td>
+                    <td>exaPipeline/.env → REDIS_URL</td>
+                </tr>
+                <tr>
+                    <td>exaOCR</td>
+                    <td>PDF → Markdown</td>
+                    <td>45001</td>
+                    <td>exaPipeline/.env → OCR_API_URL</td>
+                </tr>
+                <tr>
+                    <td>vLLM (Qwen3)</td>
+                    <td>LLM inference</td>
+                    <td>45000</td>
+                    <td>exaPipeline/.env → VLLM_API_URL</td>
+                </tr>
+                <tr>
+                    <td>Backend API</td>
+                    <td>Pipeline control</td>
+                    <td>8000</td>
+                    <td>exaPipelineDashboard/.env → BACKEND_API_URL</td>
+                </tr>
+                <tr>
+                    <td>Dashboard</td>
+                    <td>User interface</td>
+                    <td>8501</td>
+                    <td>Local access</td>
+                </tr>
+            </table>
+
+            <h3>Network Configuration Examples</h3>
+            
+            <div class="tabs">
+                <button class="tab active" onclick="openTab(event, 'localhost-example')">Localhost Example</button>
+                <button class="tab" onclick="openTab(event, 'lan-example')">LAN Example</button>
+                <button class="tab" onclick="openTab(event, 'docker-network')">Docker Network Example</button>
+            </div>
+            
+            <div id="localhost-example" class="tab-content active">
+                <h4>Localhost Configuration</h4>
+                <p>For single-machine development, use localhost:</p>
+                <pre><code># exaPipeline/.env
+REDIS_URL=redis://localhost:6379/0
+OCR_API_URL=http://localhost:45001
+VLLM_API_URL=http://localhost:45000
+
+# exaPipelineDashboard/.env
+BACKEND_API_URL=http://localhost:8000</code></pre>
+            </div>
+            
+            <div id="lan-example" class="tab-content">
+                <h4>Local Area Network Configuration</h4>
+                <p>For distributed services on your local network:</p>
+                <pre><code># exaPipeline/.env
+REDIS_URL=redis://192.168.1.100:6379/0
+OCR_API_URL=http://192.168.1.101:45001
+VLLM_API_URL=http://192.168.1.102:45000
+
+# exaPipelineDashboard/.env
+BACKEND_API_URL=http://192.168.1.103:8000</code></pre>
+            </div>
+            
+            <div id="docker-network" class="tab-content">
+                <h4>Docker Network Configuration</h4>
+                <p>When using Docker networks, you can use service names:</p>
+                <pre><code># exaPipeline/.env
+REDIS_URL=redis://redis-service:6379/0
+OCR_API_URL=http://exaocr-service:45001
+VLLM_API_URL=http://vllm-service:45000
+
+# exaPipelineDashboard/.env
+BACKEND_API_URL=http://backend-service:8000</code></pre>
+            </div>
+
+            <div class="alert success">
+                <strong>Best Practice</strong>: Use host network mode or proper DNS in production. Never rely on hard-coded 192.168.1.151 in code.
+            </div>
+        </section>
+
+        <section id="usage">
+            <h2>Usage</h2>
+            <p>Access dashboard at <strong>http://localhost:8501</strong></p>
+            <p>Workflow: Upload PDFs → Monitor status → Review annotations/synthetic → Export training data</p>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <i class="fas fa-upload"></i>
+                    <h4>Upload Documents</h4>
+                    <p>Upload domain-specific PDFs (e.g., construction documents, contracts, specifications).</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-tasks"></i>
+                    <h4>Monitor Progress</h4>
+                    <p>Track processing stages in real-time.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-eye"></i>
+                    <h4>Review Results</h4>
+                    <p>Inspect annotations and synthetic data.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-download"></i>
+                    <h4>Export Data</h4>
+                    <p>Download training datasets in multiple formats.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="vllm">
+            <h2>vLLM Server Setup</h2>
+            <p>Deploy vLLM with Qwen3:4B:</p>
+            <pre><code>docker run --gpus all -p 45000:80 vllm/vllm-openai:latest \
+  --model Qwen/Qwen3-4B</code></pre>
+            <p>Then set <code>VLLM_API_URL=http://your-server-ip:45000</code> in .env</p>
+            
+            <div class="alert highlight">
+                <strong>Note</strong>: Ensure the vLLM server is running before starting the pipeline. Slow or unavailable vLLM servers cause annotation/synthesis delays.
+            </div>
+        </section>
+
+        <section id="troubleshooting">
+            <h2>Troubleshooting</h2>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <h4>Connection Errors</h4>
+                    <p>Verify all IPs in .env files match actual server addresses. Check network connectivity and firewall settings.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-file-alt"></i>
+                    <h4>No Validated Data</h4>
+                    <p>Check validation worker logs, ensure filename formats match (e.g., chunk_0001_syn_01.json).</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-server"></i>
+                    <h4>vLLM Errors</h4>
+                    <p>Ensure vLLM server is running and accessible. Restart with: <code>docker restart vllm-container</code></p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-desktop"></i>
+                    <h4>Dashboard Issues</h4>
+                    <p>Check logs: <code>docker logs exapipelinedashboard-streamlit-1</code>. Verify BACKEND_API_URL is correct.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 exaPipeline | Production-Ready Document-to-LLM Training System</p>
+        <div class="social-links">
+            <a href="https://github.com/ikantkode/exaPipeline" target="_blank"><i class="fab fa-github"></i></a>
+            <a href="#" target="_blank"><i class="fab fa-linkedin"></i></a>
+            <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.querySelector('.mobile-menu-toggle').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+                
+                // Close mobile menu if open
+                document.querySelector('.nav-links').classList.remove('active');
+            });
+        });
+
+        // Tab functionality
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+            }
+            
+            tablinks = document.getElementsByClassName("tab");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active");
+            }
+            
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+
+        // Add copy button to code blocks
+        document.querySelectorAll('pre').forEach(block => {
+            const button = document.createElement('button');
+            button.className = 'copy-button';
+            button.innerHTML = '<i class="fas fa-copy"></i>';
+            button.style.position = 'absolute';
+            button.style.top = '5px';
+            button.style.right = '5px';
+            button.style.background = 'rgba(255, 255, 255, 0.2)';
+            button.style.border = 'none';
+            button.style.color = '#fff';
+            button.style.borderRadius = '4px';
+            button.style.padding = '5px';
+            button.style.cursor = 'pointer';
+            button.style.opacity = '0.7';
+            button.style.transition = 'opacity 0.3s';
+            
+            block.style.position = 'relative';
+            block.appendChild(button);
+            
+            button.addEventListener('click', () => {
+                const text = block.querySelector('code').innerText;
+                navigator.clipboard.writeText(text).then(() => {
+                    button.innerHTML = '<i class="fas fa-check"></i>';
+                    setTimeout(() => {
+                        button.innerHTML = '<i class="fas fa-copy"></i>';
+                    }, 2000);
+                });
+            });
+            
+            button.addEventListener('mouseenter', () => {
+                button.style.opacity = '1';
+            });
+            
+            button.addEventListener('mouseleave', () => {
+                button.style.opacity = '0.7';
+            });
+        });
+
+        // Add active class to navigation based on scroll position
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-links a');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 100) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').substring(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
